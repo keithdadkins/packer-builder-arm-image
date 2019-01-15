@@ -1,0 +1,47 @@
+#cloud-config
+# vim: syntax=yaml
+#
+
+hostname: hostname
+manage_etc_hosts: true
+
+resize_rootfs: true
+growpart:
+    mode: auto
+    devices: ["/"]
+    ignore_growroot_disabled: false
+
+users:
+  - name: k8s
+    gecos: "DefaultUser"
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    groups: users,docker,video
+    ssh-authorized-keys:
+      - ssh-rsa REDACTED
+    lock_passwd: false
+    ssh_pwauth: false
+    chpasswd: { expire: false }
+
+# WiFi connect to HotSpot
+# write_files:
+#   - content: |
+#       allow-hotplug eth0
+#       auto eth0
+#       iface eth0 inet static
+#         address 192.168.2.101
+#         netmask 255.255.255.0
+#         gateway 192.168.2.1
+#     path: /etc/network/interfaces.d/eth0
+    # These commands will be ran once on first boot only
+runcmd:
+  # Pickup the hostname changes
+  # - 'systemctl disable dhcpcd'
+  # - 'systemctl enable networking'
+  # - 'systemctl restart avahi-daemon'
+power_state:
+ delay: "+10"
+ mode: reboot
+ message: cloud-init complete
+ timeout: 120
+ condition: True

@@ -9,7 +9,7 @@
 set -x
 set -e
 # Set to false to disable auto building
-export PACKERFILE=${PACKERFILE:-example.json}
+export PACKERFILE=${PACKERFILE:-k8s_base.json}
 
 mkdir -p /home/vagrant/.packer.d/plugins
 cp /vagrant/packer-builder-arm-image /home/vagrant/.packer.d/plugins/
