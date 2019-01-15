@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "generic/ubuntu1804"
+  config.vm.box = "debian/stretch64"
   
   config.vm.synced_folder "./", "/vagrant", disabled: false
 
